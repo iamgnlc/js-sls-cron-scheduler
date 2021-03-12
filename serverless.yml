@@ -1,0 +1,16 @@
+service: js-sls-cron
+provider:
+  name: aws
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-offline-scheduler
+
+functions:
+  fetch_something_run:
+    handler: src/functions/fetchSomething.run
+    events:
+      - schedule:
+          enabled: ${env:ENABLED}
+          rate: cron(* * * * ? *)
